@@ -1,6 +1,7 @@
 let hero = {
   name: "Hero",
-  hp: 100,  
+  hp: 100,
+  maxHp: 100,
   healthPotions: 5,
   cssClasses: ["hero", "hero-dead"],
   currentCssClass: 0

@@ -1,6 +1,7 @@
 let enemy = {
   name: "Enemy",
   hp: 200,
+  maxHp: 200,
   cssClasses: ["evil-knight", "evil-knight-dead"],
   currentCssClass: 0
 }

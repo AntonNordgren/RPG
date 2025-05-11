@@ -40,10 +40,10 @@
   rotate: 90deg;
 }
 
-.game-panel {
+.options-panel {
   position: absolute;
   z-index: 1;
-  background-color: black;
+  background-color: rgba(0, 0, 0, .6);
   color: red;
   bottom: 0;
   left: 700px;
@@ -52,18 +52,19 @@
   width: 300px;
   margin: auto;
 }
-.game-panel-header {
+.options-panel-header {
   color: white;
   margin-bottom: 10px;
   text-align: center;
-  background-color: black;
 }
 
 .custom-button {
-  background-color: blue;
+  background-color: rgba(255, 0, 0, 1);
   padding: 10px;
   color: white;
   margin:auto;
+  width: 100%;
+  border-radius: 5px;
 }
 
 .hero-panel {
@@ -74,12 +75,14 @@
   font-size: 50px;
   color: red;
 
+  width: 400px;
+  height: 200px;
+
   padding: 30px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, .5);
 }
 
 .enemy-panel {
-  background-color: black;
   position: absolute;
   top: 0;
   right: 0;
@@ -87,4 +90,31 @@
   font-size: 50px;
   color: red;
   padding: 30px;
+  background-color: rgba(0, 0, 0, .5);
+
+  width: 400px;
+  height: 200px;
+}
+
+.healthpotion {
+  width: 75px;
+  position: relative;
+  margin: auto;
+}
+
+.health-potion-container {
+  display: flex;
+  width: 100%;
+}
+
+.health-symbol {
+  width: 150px;
+}
+
+.health-panel {
+  display: flex;
+}
+
+.health-value-container {
+  margin: auto;
 }

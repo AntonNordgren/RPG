@@ -8,6 +8,10 @@ function App() {
 
   const [hero, setHero] = useState(heroInport)
   const [enemy, setEnemy] = useState(enemyInport)
+  const [optionActive, setOptionActive] = useState(true)
+
+  const [heroState, setHeroState] = useState('hero')
+  const [enemyState, setEnemyState] = useState('evil-knight')
 
   useEffect(() => {
     initialize()
@@ -19,46 +23,65 @@ function App() {
   }
 
   const handleAttack = () => {
-    if(hero.hp > 0) {
-      console.log('Handle Attack')
-      const attackDMG = 30
-      const newValue = {...enemy, hp: enemy.hp -= attackDMG}
-      setEnemy(newValue)
-      if(enemy.hp <= 0) {
-        alert('You won!')
-        setEnemy({...enemy, currentCssClass: 1})
-      }
-      enemyAction()
-    }
-  }
 
-  const enemyAction = () => {
-    if(enemy.hp > 0) {
-      console.log('Enemy Action')
-      const attackDMG = 25
-      const newValue = {...hero, hp: hero.hp -= attackDMG}
-      setHero(newValue)
-      if(hero.hp <= 0) {
-        setHero({...hero, currentCssClass: 1})
-        alert('You are dead')
-      }
-    }
-  }
-
-  const useHealthPotion = () => {
-    if(hero.healthPotions > 0 && hero.hp > 0) {
-      console.log('use hp potion', hero)
-      if(hero.hp != 100) {
-        const heal = 50
-        let newHp = undefined;
-        if(hero.hp + heal >= 100) newHp = 100
-        else newHp = hero.hp += heal
-        const newValue = {...hero, hp: newHp, healthPotions: hero.healthPotions -= 1}
-        console.log( newValue)
-        setHero(newValue)
+    if(optionActive) {
+      setOptionActive(false)
+      if(hero.hp > 0) {
+        console.log('Handle Attack')
+        setHeroState('hero hero-attack')
+        const attackDMG = 30
+        const newValue = {...enemy, hp: enemy.hp -= attackDMG}
+        setEnemy(newValue)
+        setTimeout( () => setHeroState('hero'), 500)
+        if(enemy.hp <= 0) {
+          setEnemy({...enemy, currentCssClass: 1})
+          setEnemyState("evil-knight-dead")
+        }
         enemyAction()
       }
     }
+
+
+  }
+
+  const enemyAction = () => {
+    setTimeout(() => {
+      if (enemy.hp > 0) {
+        console.log('Enemy Action')
+        setEnemyState('evil-knight evil-knight-attack')
+        const attackDMG = 25
+        const newValue = { ...hero, hp: hero.hp -= attackDMG }
+        setHero(newValue)
+        setTimeout( () => setEnemyState('evil-knight'), 500)
+        setOptionActive(true)
+        if (hero.hp <= 0) {
+          setHero({ ...hero, currentCssClass: 1 })
+          setHeroState("hero-dead")
+        }
+      }
+    }, 1000)
+
+  }
+
+  const useHealthPotion = () => {
+
+    if (optionActive) {
+      setOptionActive(false)
+      if (hero.healthPotions > 0 && hero.hp > 0) {
+        console.log('use hp potion', hero)
+        if (hero.hp != 100) {
+          const heal = 50
+          let newHp = undefined;
+          if (hero.hp + heal >= 100) newHp = 100
+          else newHp = hero.hp += heal
+          const newValue = { ...hero, hp: newHp, healthPotions: hero.healthPotions -= 1 }
+          console.log(newValue)
+          setHero(newValue)
+          enemyAction()
+        }
+      }
+    }
+
   }
 
   const renderHealthPotions = () => {
@@ -75,8 +98,8 @@ function App() {
     <>
       <div className="gameContainer">
         <img className="background-image" src="./assests/dungeon.jpg" />
-        <img className={hero.cssClasses[hero.currentCssClass]} src="./assests/hero.png" />
-        <img className={enemy.cssClasses[enemy.currentCssClass]} src="./assests/evil-knight.png" />
+        <img className={heroState} src="./assests/hero.png" />
+        <img className={enemyState} src="./assests/evil-knight.png" />
         <div className="hero-panel">
           <div className="health-panel">
             <div className="health-symbol-container">
@@ -100,8 +123,12 @@ function App() {
         </div>
         <div className="options-panel">
           <h1 className="options-panel-header">Options</h1>
-          <button className="custom-button" onClick={() => handleAttack()}>1. Attack</button><br />
-          <button className="custom-button" onClick={() => useHealthPotion()}>2. Use Health Potion</button>
+          {
+            optionActive ? <>
+            <button className="custom-button" onClick={() => handleAttack()}>1. Attack</button><br />
+            <button className="custom-button" onClick={() => useHealthPotion()}>2. Use Health Potion</button>
+            </> : <h1>Waiting for enemy action</h1>
+          }
         </div>
       </div>
     </>

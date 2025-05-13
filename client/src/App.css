@@ -13,7 +13,14 @@
   top: 430px;
   left: 250px;
   transform: scaleX(-1);
-  transition: 2s;
+  transition: .2s;
+}
+
+.hero-attack {
+  position: absolute;
+  top: 430px;
+  left: 950px;
+  transform: scaleX(-1);
 }
 
 .hero-dead {
@@ -24,10 +31,19 @@
   rotate: -90deg;
 }
 
+
 .evil-knight {
   position: absolute;
   top: 280px;
   right: 260px;
+  height: 500px;
+  transition: .2s;
+}
+
+.evil-knight-attack {
+  position: absolute;
+  top: 280px;
+  right: 960px;
   height: 500px;
 }
 
@@ -74,10 +90,8 @@
   z-index: 1;
   font-size: 50px;
   color: red;
-
   width: 400px;
   height: 200px;
-
   padding: 30px;
   background-color: rgba(0, 0, 0, .5);
 }
@@ -91,7 +105,6 @@
   color: red;
   padding: 30px;
   background-color: rgba(0, 0, 0, .5);
-
   width: 400px;
   height: 200px;
 }
